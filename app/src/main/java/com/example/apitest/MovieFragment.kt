@@ -42,14 +42,20 @@ class MovieFragment : Fragment() {
             val response = URL(url).readText()
             val gson = Gson()
             val movieResponse = gson.fromJson(response, MovieResponse::class.java)
-            movies.addAll(movieResponse.results)
+            movies.addAll(movieResponse.items)
             activity?.runOnUiThread {
                 recyclerView.adapter = MovieAdapter(movies)
             }
         }.start()
     }
 
-    data class MovieResponse(val results: List<Movie>)
+    data class MovieResponse(
+        val create_by : String,
+        val description : String,
+        val favorite_count : Int,
+        val id : Int,
+        val items : List<Movie>
+    )
 
 
 }
